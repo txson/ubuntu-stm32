@@ -1,0 +1,23 @@
+TOP = $(shell pwd)
+PROGRAM = stm32f4_out
+LIBDIR = $(TOP)/lib
+TypeOfMCU=STM32F407xx
+
+TC=arm-none-eabi
+CC=$(TC)-gcc
+LD=$(TC)-ld -v
+OBJCOPY=$(TC)-objcopy
+AR=$(TC)-ar
+GDB=$(TC)-gdb
+INCLUDE=-I$(TOP)/include
+
+COMMONFLAGS=-g -mcpu=cortex-m3 -mthumb
+COMMONFLAGSlib=$(COMMONFLAGS)
+
+CFLAGS+=$(COMMONFLAGS) -Wall -Werror $(INCLUDE)
+CFLAGS+=-D $(TypeOfMCU)
+CFLAGS+=-D VECT_TAB_FLASH
+
+CFLAGSlib+=$(COMMONFLAGSlib) -Wall -Werror $(INCLUDE)
+CFLAGSlib+=-D $(TypeOfMCU)
+CFLAGSlib+=-D VECT_TAB_FLASH
